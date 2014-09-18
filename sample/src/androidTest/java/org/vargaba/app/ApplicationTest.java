@@ -1,4 +1,4 @@
-package com.vargaba.app;
+package org.vargaba.app;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

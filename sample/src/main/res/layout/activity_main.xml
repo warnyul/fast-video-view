@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2014 Balázs Varga
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014 Balázs Varga
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,27 +13,37 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/default_padding">
+    android:layout_height="match_parent"
+    android:padding="@dimen/default_padding"
+    tools:context="org.vargaba.app.sample.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/text_margin_bottom"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/sample" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_height="wrap_content">
-        <!-- MediaController will be attached to this View -->
 
-        <com.vargaba.app.view.VideoView
-            android:id="@+id/video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-</LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_activity_video_sample"
+            android:id="@+id/video_sample_button" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_activity_rotated_sample"
+            android:id="@+id/rotated_sample_button" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_activity_alpha_sample"
+            android:id="@+id/alpha_sample_button" />
+
+    </LinearLayout>
+</ScrollView>

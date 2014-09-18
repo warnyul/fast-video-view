@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.vargaba.app.view;
+package org.vargaba.app.view;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;

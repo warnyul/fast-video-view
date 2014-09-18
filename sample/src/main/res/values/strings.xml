@@ -1,4 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">VideoView</string>
     <string name="sample">Sample</string>
+    <string name="title_activity_rotated_sample">Rotated sample</string>
+    <string name="title_activity_video_sample">VideoView sample</string>
+    <string name="title_activity_alpha_sample">Alpha sample</string>
+
 </resources>

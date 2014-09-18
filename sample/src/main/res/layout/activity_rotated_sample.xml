@@ -13,10 +13,18 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.vargaba.app.sample.screen.RotatedSampleActivity">
+        <!-- MediaController will be attached to this View -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.vargaba.app.view">
+        <org.vargaba.app.view.VideoView
+            android:id="@+id/video"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="45"/>
 
-    <application />
-
-</manifest>
+</RelativeLayout>

@@ -13,30 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.vargaba.app.sample;
+package org.vargaba.app.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.MediaController;
-
-import com.vargaba.app.view.VideoView;
-
-import java.util.concurrent.TimeUnit;
+import android.view.MenuItem;
 
 /**
- * Activity for VideoView sample.
+ * Base Activity for Sample Activities.
  */
-public class MainActivity extends Activity {
+public class BaseSampleActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        setContentView(R.layout.activity_main);
-
-        VideoView videoView = (VideoView)findViewById(R.id.video);
-        videoView.setMediaController(new MediaController(this));
-        videoView.setVideoPath("http://www.pocketjourney.com/downloads/pj/video/famous.3gp");
-        videoView.seekTo((int)TimeUnit.SECONDS.toMillis(1));
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

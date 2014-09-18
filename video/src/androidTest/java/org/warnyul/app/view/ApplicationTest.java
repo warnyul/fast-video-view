@@ -1,4 +1,4 @@
-package com.warnyul.app.view;
+package org.warnyul.app.view;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

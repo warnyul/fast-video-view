@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 Balázs Varga
+<!--
+ Copyright (C) 2014 Balázs Varga
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,22 +14,33 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vargaba.app.sample">
+    package="org.vargaba.app.sample" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application android:allowBackup="true"
-        android:label="@string/app_name"
+    <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".screen.RotatedSampleActivity"
+            android:label="@string/title_activity_rotated_sample" />
+        <activity
+            android:name=".screen.VideoSampleActivity"
+            android:label="@string/title_activity_video_sample" />
+        <activity
+            android:name=".screen.AlphaSampleActivity"
+            android:label="@string/title_activity_alpha_sample" />
     </application>
 
 </manifest>
