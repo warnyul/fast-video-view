@@ -58,7 +58,7 @@ import java.util.Map;
  */
 public class VideoView extends TextureView implements MediaController.MediaPlayerControl {
 
-    private static final String TAG = "BaseVideoView";
+    private static final String TAG = VideoView.class.getSimpleName();
 
     // settable by the client
     private Uri mUri;
@@ -80,8 +80,6 @@ public class VideoView extends TextureView implements MediaController.MediaPlaye
     // of STATE_PAUSED.
     private int mCurrentState = STATE_IDLE;
     private int mTargetState = STATE_IDLE;
-
-    private boolean mDebugMode = true;
 
     // All the stuff we need for playing and showing a video
     private Surface mSurface = null;
