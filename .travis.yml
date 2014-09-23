@@ -20,3 +20,5 @@ android:
     components:
         - build-tools-20.0.0
         - android-19
+before_install:
+ - chmod +x gradlew
