@@ -25,12 +25,9 @@ android {
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 1
-        versionName '1.0'
+        versionName '1.0-SNAPSHOT'
     }
     buildTypes {
-        debug {
-            versionNameSuffix '-SNAPSHOT'
-        }
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
