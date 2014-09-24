@@ -17,10 +17,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.vargaba.app.sample.screen.RotatedSampleActivity">
+    tools:context="org.warnyul.android.fastvideoview.sample.screens.RotatedSampleActivity">
         <!-- MediaController will be attached to this View -->
 
-        <org.vargaba.app.view.VideoView
+        <org.warnyul.android.widget.FastVideoView
             android:id="@+id/video"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"

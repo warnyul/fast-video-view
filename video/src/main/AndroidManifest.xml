@@ -16,7 +16,7 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.vargaba.app.view">
+    package="org.warnyul.android">
 
     <application />
 

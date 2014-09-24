@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vargaba.app.sample;
+package org.warnyul.android.fastvideoview.sample;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,9 +21,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import org.vargaba.app.sample.screen.AlphaSampleActivity;
-import org.vargaba.app.sample.screen.RotatedSampleActivity;
-import org.vargaba.app.sample.screen.VideoSampleActivity;
+import org.warnyul.android.fastvideoview.R;
+import org.warnyul.android.fastvideoview.sample.screens.AlphaSampleActivity;
+import org.warnyul.android.fastvideoview.sample.screens.RotatedSampleActivity;
+import org.warnyul.android.fastvideoview.sample.screens.VideoSampleActivity;
 
 /**
  * Activity for listing VideoView samples.

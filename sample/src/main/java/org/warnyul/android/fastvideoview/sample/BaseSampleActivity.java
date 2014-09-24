@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vargaba.app.sample;
+package org.warnyul.android.fastvideoview.sample;
 
 import android.app.Activity;
 import android.os.Bundle;

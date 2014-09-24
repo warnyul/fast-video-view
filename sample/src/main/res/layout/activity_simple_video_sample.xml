@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/default_padding"
-    tools:context="org.vargaba.app.sample.screen.VideoSampleActivity">
+    tools:context="org.warnyul.android.fastvideoview.sample.screens.VideoSampleActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content">
         <!-- MediaController will be attached to this View -->
 
-        <org.vargaba.app.view.VideoView
+        <org.warnyul.android.widget.FastVideoView
             android:id="@+id/video"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

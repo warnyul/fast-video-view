@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.vargaba.app.view;
+package org.warnyul.android.widget;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -41,24 +41,24 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Displays a video file.  The VideoView class
+ * Displays a video file.  The FastVideoView class
  * can load images from various sources (such as resources or content
  * providers), takes care of computing its measurement from the video so that
  * it can be used in any layout manager, and provides various display options
  * such as scaling and tinting.<p>
  * <p/>
- * <em>Note: VideoView does not retain its full state when going into the
+ * <em>Note: FastVideoView does not retain its full state when going into the
  * background.</em>  In particular, it does not restore the current play state,
  * play position, selected tracks.  Applications should
  * save and restore these on their own in
  * {@link android.app.Activity#onSaveInstanceState} and
  * {@link android.app.Activity#onRestoreInstanceState}.<p>
  * Also note that the audio session id (from {@link #getAudioSessionId}) may
- * change from its previously returned value when the VideoView is restored.
+ * change from its previously returned value when the FastVideoView is restored.
  */
-public class VideoView extends TextureView implements MediaController.MediaPlayerControl {
+public class FastVideoView extends TextureView implements MediaController.MediaPlayerControl {
 
-    private static final String TAG = VideoView.class.getSimpleName();
+    private static final String TAG = FastVideoView.class.getSimpleName();
 
     // settable by the client
     private Uri mUri;
@@ -103,17 +103,17 @@ public class VideoView extends TextureView implements MediaController.MediaPlaye
 
     private MediaPlayer.OnBufferingUpdateListener mOnBufferingUpdateListener;
 
-    public VideoView(Context context) {
+    public FastVideoView(Context context) {
         super(context);
         initVideoView();
     }
 
-    public VideoView(Context context, AttributeSet attrs) {
+    public FastVideoView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initVideoView();
     }
 
-    public VideoView(Context context, AttributeSet attrs, int defStyle) {
+    public FastVideoView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initVideoView();
     }
@@ -182,13 +182,13 @@ public class VideoView extends TextureView implements MediaController.MediaPlaye
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
-        event.setClassName(VideoView.class.getName());
+        event.setClassName(FastVideoView.class.getName());
     }
 
     @Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(info);
-        info.setClassName(VideoView.class.getName());
+        info.setClassName(FastVideoView.class.getName());
     }
 
     @Override

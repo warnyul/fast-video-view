@@ -1,13 +1,13 @@
-# VideoView
+# FastVideoView
 ## Overview
 
-This implementation can only be used in a hardware accelerated window. When rendered in software, ViewView will display nothing.
+This implementation can only be used in a hardware accelerated window. When rendered in software, FastVideoView will display nothing.
 
-Unlike basic [VideoView](http://developer.android.com/reference/android/widget/VideoView.html) on Android, does not create a separate window, but behaves as a regular view. This key difference allows a ViewView to be moved, transformed, animated, etc. For instance, you can make a VideoView semi-translucent by calling `videoView.setAlpha(0.5)`. VideoView has featuring all of the TextureView.
+Unlike basic [VideoView](http://developer.android.com/reference/android/widget/VideoView.html) on Android, does not create a separate window, but behaves as a regular view. This key difference allows a FastViewView to be moved, transformed, animated, etc. For instance, you can make a FastVideoView semi-translucent by calling `videoView.setAlpha(0.5)`. FastVideoView has featuring all of the TextureView.
 
-Using a VideoView is simple: all you need is get its basic [VideoView](http://developer.android.com/reference/android/widget/VideoView.html) on Android. The following examples demonstrate how to use a VideoView:
+Using a FastVideoView is simple: all you need is get its basic [VideoView](http://developer.android.com/reference/android/widget/VideoView.html) on Android. The following examples demonstrate how to use a VideoView:
 
-    <org.vargaba.app.view.VideoView
+    <org.warnyul.android.widget.FastVideoView
             android:id="@+id/video"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@ Java code:
 
             setContentView(R.layout.activity_main);
 
-            VideoView videoView = (VideoView)findViewById(R.id.video);
+            FastVideoView videoView = (FastVideoView)findViewById(R.id.video);
             videoView.setMediaController(new MediaController(this));
             videoView.setVideoPath("http://yourwebsite.com/customvideo.3gp");
             videoView.setAlpha(0.5);    // Set transparency.
