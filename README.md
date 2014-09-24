@@ -1,4 +1,7 @@
 # FastVideoView
+## Requirements
+Android API Level >= 14 (Ice Cream Sandwich)
+
 ## Overview
 
 This implementation can only be used in a hardware accelerated window. When rendered in software, FastVideoView will display nothing.
