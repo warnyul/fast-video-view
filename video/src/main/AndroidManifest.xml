@@ -16,7 +16,7 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.warnyul.android">
+    package="com.warnyul.android">
 
     <application />
 

@@ -1,4 +1,4 @@
-package org.warnyul.android.fastvideoview.sample;
+package com.warnyul.android.fastvideoview.sample;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

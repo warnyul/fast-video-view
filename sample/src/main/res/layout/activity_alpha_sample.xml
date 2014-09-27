@@ -18,10 +18,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.warnyul.android.fastvideoview.sample.screens.RotatedSampleActivity">
+    tools:context="com.warnyul.android.fastvideoview.sample.screens.RotatedSampleActivity">
     <!-- MediaController will be attached to this View -->
 
-    <org.warnyul.android.widget.FastVideoView
+    <com.warnyul.android.widget.FastVideoView
         android:id="@+id/video"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"

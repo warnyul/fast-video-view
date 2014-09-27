@@ -16,7 +16,7 @@
 -->
     
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.warnyul.android.fastvideoview" >
+    package="com.warnyul.android.fastvideoview" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -25,7 +25,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name="org.warnyul.android.fastvideoview.sample.MainActivity"
+        <activity android:name="com.warnyul.android.fastvideoview.sample.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,15 +34,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.warnyul.android.fastvideoview.sample.screens.RotatedSampleActivity"
+            android:name="com.warnyul.android.fastvideoview.sample.screens.RotatedSampleActivity"
             android:label="@string/title_activity_rotated_sample"
             android:exported="false" />
         <activity
-            android:name="org.warnyul.android.fastvideoview.sample.screens.VideoSampleActivity"
+            android:name="com.warnyul.android.fastvideoview.sample.screens.VideoSampleActivity"
             android:label="@string/title_activity_video_sample"
             android:exported="false" />
         <activity
-            android:name="org.warnyul.android.fastvideoview.sample.screens.AlphaSampleActivity"
+            android:name="com.warnyul.android.fastvideoview.sample.screens.AlphaSampleActivity"
             android:label="@string/title_activity_alpha_sample"
             android:exported="false" />
     </application>

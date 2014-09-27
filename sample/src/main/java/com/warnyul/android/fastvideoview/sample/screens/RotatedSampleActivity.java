@@ -13,33 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.warnyul.android.fastvideoview.sample.screens;
+package com.warnyul.android.fastvideoview.sample.screens;
 
 import android.os.Bundle;
 import android.widget.MediaController;
 
-import org.warnyul.android.fastvideoview.R;
-import org.warnyul.android.fastvideoview.sample.BaseSampleActivity;
-import org.warnyul.android.widget.FastVideoView;
+import com.warnyul.android.fastvideoview.R;
+import com.warnyul.android.fastvideoview.sample.BaseSampleActivity;
+
+import com.warnyul.android.widget.FastVideoView;
 
 import java.util.concurrent.TimeUnit;
 
 /**
- * Sample Activity for VideoView class transparent usage.
+ * Sample Activity for VideoView class rotated usage.
  */
-public class AlphaSampleActivity extends BaseSampleActivity {
+public class RotatedSampleActivity extends BaseSampleActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alpha_sample);
-
+        setContentView(R.layout.activity_rotated_sample);
         FastVideoView videoView = (FastVideoView)findViewById(R.id.video);
         videoView.setMediaController(new MediaController(this));
         videoView.setVideoPath("http://www.pocketjourney.com/downloads/pj/video/famous.3gp");
-        videoView.seekTo((int) TimeUnit.SECONDS.toMillis(1));
 
-        // Uncomment this line, when you want to set alpha from code.
-        // videoView.setAlpha(0.5f);
+        // Uncomment this line, when you want to set rotation from code.
+        // videoView.setRotation(45);
+        videoView.seekTo((int) TimeUnit.SECONDS.toMillis(1));
     }
 }

@@ -1,4 +1,4 @@
-package org.warnyul.android.widget;
+package com.warnyul.android.widget;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

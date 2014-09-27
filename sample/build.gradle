@@ -21,7 +21,7 @@ android {
     buildToolsVersion '20.0.0'
 
     defaultConfig {
-        applicationId 'org.warnyul.android.fastvideoview'
+        applicationId 'com.warnyul.android.fastvideoview'
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 1
