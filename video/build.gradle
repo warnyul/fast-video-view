@@ -19,7 +19,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 def isReleaseBuild() {
-    return VERSION_NAME.contains("SNAPSHOT") == false
+    return !VERSION_NAME.contains("SNAPSHOT");
 }
 
 afterEvaluate { project ->
@@ -112,21 +112,6 @@ android {
         release {
             runProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    libraryVariants.all { variant ->
-        task("generate${variant.name}Javadoc", type: Javadoc) {
-            source = variant.javaCompile.source
-            def androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-
-            classpath = files(variant.javaCompile.classpath.files, androidJar)
-            options {
-                links "http://docs.oracle.com/javase/7/docs/api/"
-                linksOffline "http://d.android.com/reference","${android.sdkDirectory}/docs/reference"
-            }
-            exclude '**/BuildConfig.java'
-            exclude '**/R.java'
         }
     }
 }
