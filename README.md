@@ -38,13 +38,13 @@ Java code:
 
 ## Download
 ### Gradle
-    compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.0-SNAPSHOT'
+    compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.0'
 
 ### Maven
     <dependency>
         <groupId>com.warnyul.android.fast-video-view</groupId>
         <artifactId>fast-video-view</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </dependency>
 
 ## Licence
