@@ -40,6 +40,12 @@ Java code:
 ### Gradle
     compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.0-SNAPSHOT'
 
+### Maven
+    <dependency>
+        <groupId>com.warnyul.android.fast-video-view</groupId>
+        <artifactId>fast-video-view</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </dependency>
 
 ## Licence
 Copyright © 2014 Balázs Varga
