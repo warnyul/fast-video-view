@@ -36,6 +36,11 @@ Java code:
         }
     }
 
+## Download
+### Gradle
+    compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.0-SNAPSHOT'
+
+
 ## Licence
 Copyright © 2014 Balázs Varga
 
