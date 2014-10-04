@@ -1,4 +1,4 @@
-# FastVideoView [![Build Status](https://travis-ci.org/warnyul/FastVideoView.svg?branch=develop)](https://travis-ci.org/warnyul/FastVideoView)
+# fast-video-view [![Build Status](https://travis-ci.org/warnyul/fast-video-view.svg?branch=develop)](https://travis-ci.org/warnyul/fast-video-view)
 ## Requirements
 Android API Level >= 14 (Ice Cream Sandwich)
 
