@@ -37,6 +37,11 @@ Java code:
     }
 
 ## Download
+### Jar
+- [fast-video-view-1.0.0.jar](https://oss.sonatype.org/content/groups/public/com/warnyul/android/fast-video-view/fast-video-view/1.0.0/fast-video-view-1.0.0.jar)
+- [fast-video-view-1.0.0-sources.jar](https://oss.sonatype.org/content/groups/public/com/warnyul/android/fast-video-view/fast-video-view/1.0.0/fast-video-view-1.0.0-sources.jar)
+- [fast-video-view-1.0.0-javadoc.jar](https://oss.sonatype.org/content/groups/public/com/warnyul/android/fast-video-view/fast-video-view/1.0.0/fast-video-view-1.0.0-javadoc.jar)
+
 ### Gradle
     compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.0'
 
