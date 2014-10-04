@@ -15,6 +15,83 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = 'com.warnyul.android.widget'
+archivesBaseName = 'FastVideoView'
+version = VERSION_NAME
+
+signing {
+    required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.sourceFiles
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    //basename = artifact_id
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    //basename = artifact_id
+    from android.sourceSets.main.java.sourceFiles
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'FastVideoView'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'TextureView based VideoView implementation for Android.'
+                url 'https://github.com/warnyul/FastVideoView'
+
+                scm {
+                    connection 'scm:git:https://github.com/warnyul/FastVideoView.git'
+                    developerConnection 'scm:git:https://github.com/warnyul/FastVideoView.git'
+                    url 'scm:git:https://github.com/warnyul/FastVideoView.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'warnyul'
+                        name 'Balázs Varga'
+                        email 'balazs.varga@warnyul.com'
+                    }
+                }
+            }
+        }
+    }
+}
 
 android {
     compileSdkVersion 19
@@ -24,29 +101,16 @@ android {
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 1
-        versionName '1.0-SNAPSHOT'
+        versionName VERSION_NAME
     }
 
     buildTypes {
-
         release {
-            runProguard false
+            runProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    libraryVariants.all { variant ->
-        def name = variant.buildType.name
-        if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
-            return; // Skip debug builds.
-        }
-        def task = project.tasks.create "jar${name.capitalize()}", Jar
-        task.dependsOn variant.javaCompile
-        task.from variant.javaCompile.destinationDir
-        artifacts.add('archives', task);
     }
 }
 
 dependencies {
 }
-
