@@ -12,7 +12,7 @@ android:
   - android-sdk-license-5be876d5
 before_install:
 - chmod +x gradlew
-- openssl aes-256-cbc -k "$super_secret_password" -in secret_key.enc -out secret_key.gpg
+- openssl aes-256-cbc -k "$super_secret_password" -in ./video/secret_key.enc -out ./video/secret_key.gpg
   -d
 - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
 - emulator -avd test -no-skin -no-audio -no-window &
