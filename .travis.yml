@@ -26,5 +26,5 @@ before_install:
     - emulator -avd test -no-skin -no-audio -no-window &
     - android-wait-for-emulator
     - adb shell input keyevent 82 &
-after_install:
+after_success:
     - gradlew :video:uploadArchives -PossrhUsername="${ossrhUsername}" -PossrhPassword="{$ossrhPassword}"
