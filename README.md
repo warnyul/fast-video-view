@@ -10,7 +10,7 @@ Unlike basic [VideoView](http://developer.android.com/reference/android/widget/V
 
 Using a FastVideoView is simple: all you need is get its basic [VideoView](http://developer.android.com/reference/android/widget/VideoView.html) on Android. The following examples demonstrate how to use a VideoView:
 
-    <org.warnyul.android.widget.FastVideoView
+    <com.warnyul.android.widget.FastVideoView
             android:id="@+id/video"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,8 +30,8 @@ Java code:
             FastVideoView videoView = (FastVideoView)findViewById(R.id.video);
             videoView.setMediaController(new MediaController(this));
             videoView.setVideoPath("http://yourwebsite.com/customvideo.3gp");
-            videoView.setAlpha(0.5);    // Set transparency.
-            videoView.setRotation(45);  // Set rotation.
+            videoView.setAlpha(0.5f);       // Set transparency.
+            videoView.setRotation(45.0f);   // Set rotation.
             videoView.start();
         }
     }

@@ -1,3 +1,19 @@
+#
+# Copyright (C) 2014 Balázs Varga
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 language: android
 jdk: oraclejdk7
 env:
@@ -5,19 +21,19 @@ env:
   - secure: glSM29zH6qcGWugWZt9cRDtgjq3/tPo+jLXmsFaYGQJjfZeAgtITvBS6u7yNmlYQCcJSMyW/QW7pwi7fTwoYssrOBpFXrvZWgnE1m+/ukoXiReUdXKOS9blRlOpKx2Ocpak0lgTS7oRo7JOgQ3oXtBny2UDHVDlHqFhPxZbOh7s=
   - secure: QM89U4SGeIiu7FYFoh6oLrn9TsKczQZhdLQu6fAoZIEpPvbgzP7tvLtNDd34esaIoj3V4/C4QL2u3Tnhd9mr+G36xtUWpurjA/dELRzTNra2UO8R3uc5C73omyNU2EOl/5ZOblzudtDqkRGDHf1hBNXaLys/PnL4Jaiv2ixLsrY=
 android:
-  components:
-  - build-tools-20.0.0
-  - android-19
-  licences:
-  - android-sdk-license-5be876d5
+    components:
+        - build-tools-20.0.0
+        - android-20
+        - sys-img-armeabi-v7a-android-19
+    licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
 before_install:
 - chmod +x gradlew
 - openssl aes-256-cbc -k "$super_secret_password" -in ./video/secret_key.enc -out ./video/secret_key.gpg
-  -d
 - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
 - emulator -avd test -no-skin -no-audio -no-window &
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
 after_success:
-- ./gradlew :video:uploadArchives -PNEXUS_USERNAME="${NEXUS_USERNAME}" -PNEXUS_PASSWORD="${NEXUS_PASSWORD}"
-  -Psigning.keyId="${SIGNING_KEY_ID}" -Psigning.password="${SIGNING_PASSWORD}" -Psigning.secretKeyRingFile="${SIGNING_KEY_RING_FILE}"
+- if [[ $TRAVIS_TAG != null ]]; then ./gradlew :video:uploadArchives -PNEXUS_USERNAME="${NEXUS_USERNAME}" -PNEXUS_PASSWORD="${NEXUS_PASSWORD}" -Psigning.keyId="${SIGNING_KEY_ID}" -Psigning.password="${SIGNING_PASSWORD}" -Psigning.secretKeyRingFile="${SIGNING_KEY_RING_FILE}"; fi
