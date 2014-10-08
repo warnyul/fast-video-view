@@ -19,11 +19,11 @@ jdk: oraclejdk7
 android:
     components:
         - build-tools-20.0.0
-        - android-19
+        - android-20
+        - sys-img-armeabi-v7a-android-19
     licences:
-        - 'android-sdk-license-5be876d5'
-before_install:
-    - chmod +x gradlew
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
 before_install:
     - chmod +x gradlew
     - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
