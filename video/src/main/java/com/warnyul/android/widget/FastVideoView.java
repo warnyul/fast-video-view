@@ -38,26 +38,24 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.MediaController;
 
-import com.warnyul.android.BuildConfig;
-
 import java.io.IOException;
 import java.util.Map;
 
 /**
- * Displays a video file.  The FastVideoView class
+ * <p>Displays a video file.  The FastVideoView class
  * can load images from various sources (such as resources or content
  * providers), takes care of computing its measurement from the video so that
  * it can be used in any layout manager, and provides various display options
- * such as scaling and tinting.<p>
- * <p/>
- * <em>Note: FastVideoView does not retain its full state when going into the
+ * such as scaling and tinting.
+ * </p>
+ * <p><em>Note: FastVideoView does not retain its full state when going into the
  * background.</em>  In particular, it does not restore the current play state,
  * play position, selected tracks.  Applications should
  * save and restore these on their own in
  * {@link android.app.Activity#onSaveInstanceState} and
- * {@link android.app.Activity#onRestoreInstanceState}.<p>
- * Also note that the audio session id (from {@link #getAudioSessionId}) may
- * change from its previously returned value when the FastVideoView is restored.
+ * {@link android.app.Activity#onRestoreInstanceState}.</p>
+ * <p>Also note that the audio session id (from {@link #getAudioSessionId}) may
+ * change from its previously returned value when the FastVideoView is restored.</p>
  */
 public class FastVideoView extends TextureView implements MediaController.MediaPlayerControl {
 
@@ -324,7 +322,7 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
             mVideoHeight = mp.getVideoHeight();
             if (mVideoWidth != 0 && mVideoHeight != 0) {
 
-                if (BuildConfig.VERSION_CODE >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                     getSurfaceTexture().setDefaultBufferSize(mVideoWidth, mVideoHeight);
                 } else {
                     mSurfaceTextureListener.onSurfaceTextureSizeChanged(getSurfaceTexture(), mVideoWidth, mVideoHeight);
