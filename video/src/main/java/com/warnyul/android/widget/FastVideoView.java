@@ -16,7 +16,7 @@
 
 package com.warnyul.android.widget;
 
-import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +26,7 @@ import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -36,6 +37,8 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.MediaController;
+
+import com.warnyul.android.BuildConfig;
 
 import java.io.IOException;
 import java.util.Map;
@@ -314,19 +317,26 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
 
     MediaPlayer.OnVideoSizeChangedListener mSizeChangedListener = new MediaPlayer.OnVideoSizeChangedListener() {
 
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
         @Override
         public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
             mVideoWidth = mp.getVideoWidth();
             mVideoHeight = mp.getVideoHeight();
             if (mVideoWidth != 0 && mVideoHeight != 0) {
-                // TODO fixed size
+
+                if (BuildConfig.VERSION_CODE >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                    getSurfaceTexture().setDefaultBufferSize(mVideoWidth, mVideoHeight);
+                } else {
+                    mSurfaceTextureListener.onSurfaceTextureSizeChanged(getSurfaceTexture(), mVideoWidth, mVideoHeight);
+                }
+
                 requestLayout();
             }
         }
     };
 
     MediaPlayer.OnPreparedListener mPreparedListener = new MediaPlayer.OnPreparedListener() {
-        @SuppressLint("NewApi")
+
         @Override
         public void onPrepared(MediaPlayer mp) {
             // briefly show the mediacontroller
