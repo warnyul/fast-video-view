@@ -16,16 +16,23 @@
 
 language: android
 jdk: oraclejdk7
+env:
+  global:
+  - secure: glSM29zH6qcGWugWZt9cRDtgjq3/tPo+jLXmsFaYGQJjfZeAgtITvBS6u7yNmlYQCcJSMyW/QW7pwi7fTwoYssrOBpFXrvZWgnE1m+/ukoXiReUdXKOS9blRlOpKx2Ocpak0lgTS7oRo7JOgQ3oXtBny2UDHVDlHqFhPxZbOh7s=
+  - secure: QM89U4SGeIiu7FYFoh6oLrn9TsKczQZhdLQu6fAoZIEpPvbgzP7tvLtNDd34esaIoj3V4/C4QL2u3Tnhd9mr+G36xtUWpurjA/dELRzTNra2UO8R3uc5C73omyNU2EOl/5ZOblzudtDqkRGDHf1hBNXaLys/PnL4Jaiv2ixLsrY=
 android:
     components:
         - build-tools-21.1.1
         - android-21
-    licences:
+    licenses:
         - 'android-sdk-preview-license-.+'
         - 'android-sdk-license-.+'
 before_script:
     - chmod +x ./gradlew
+    - chmod +x ./archive.sh
+    - openssl aes-256-cbc -k "$super_secret_password" -in ./video/secret_key.enc -out ./video/secret_key.gpg
 script:
     - ./gradlew build
 after_success:
-    - ./gradlew :video:uploadArchives -PNEXUS_USERNAME="${NEXUS_USERNAME}" -PNEXUS_PASSWORD="${NEXUS_PASSWORD}"
+    - ./archive.sh
+

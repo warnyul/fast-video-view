@@ -1,4 +1,4 @@
-# fast-video-view [![Build Status](https://travis-ci.org/warnyul/fast-video-view.svg?branch=develop)](https://travis-ci.org/warnyul/fast-video-view)
+# fast-video-view [![Build Status](https://travis-ci.org/warnyul/fast-video-view.svg?branch=develop)](https://travis-ci.org/warnyul/fast-video-view)  [![Build Status](https://travis-ci.org/warnyul/fast-video-view.svg?branch=master)](https://travis-ci.org/warnyul/fast-video-view)
 ## Requirements
 Android API Level >= 14 (Ice Cream Sandwich)
 
@@ -36,7 +36,6 @@ Java code:
         }
     }
 
-## Download
 ### Gradle
     compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.1-SNAPSHOT'
 
