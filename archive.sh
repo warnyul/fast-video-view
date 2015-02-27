@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ -z $"{TRAVIS_TAG}" ]]; then
+if [[ -n $"{TRAVIS_TAG}" ]]; then
     echo "upload snapshot"
     ./gradlew :video:uploadArchives -PNEXUS_USERNAME="${NEXUS_USERNAME}" -PNEXUS_PASSWORD="${NEXUS_PASSWORD}"
 else
