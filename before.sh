@@ -3,5 +3,5 @@ chmod +x ./gradlew
 chmod +x ./archive.sh
 if [[ -z $"{TRAVIS_TAG}" ]]; then
     echo "prepare signing"
-    openssl aes-256-cbc -k "$super_secret_password" -in ./video/secret_key.enc -out ./video/secret_key.gpg
+    openssl aes-256-cbc -K $encrypted_0cd30212d19a_key -iv $encrypted_0cd30212d19a_iv -in ./video/fast-video-view.gpg.enc -out ./video/fast-video-view.gpg -d
 fi

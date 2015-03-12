@@ -1,6 +1,5 @@
-# fast-video-view [![Build Status](https://travis-ci.org/warnyul/fast-video-view.svg?branch=develop)](https://travis-ci.org/warnyul/fast-video-view)  [![Build Status](https://travis-ci.org/warnyul/fast-video-view.svg?branch=master)](https://travis-ci.org/warnyul/fast-video-view)
-## Requirements
-Android API Level >= 14 (Ice Cream Sandwich)
+# fast-video-view
+develop: [![Build Status](https://travis-ci.org/warnyul/fast-video-view.svg?branch=develop)](https://travis-ci.org/warnyul/fast-video-view) master: [![Build Status](https://travis-ci.org/warnyul/fast-video-view.svg?branch=master)](https://travis-ci.org/warnyul/fast-video-view)
 
 ## Overview
 
@@ -36,15 +35,21 @@ Java code:
         }
     }
 
-### Gradle
-    compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.1-SNAPSHOT'
+## Download
+Download [the latest JAR](https://oss.sonatype.org/content/groups/public/com/warnyul/android/fast-video-view/fast-video-view/1.0.0/fast-video-view-1.0.0.jar) or grab via Maven:
 
-### Maven
     <dependency>
         <groupId>com.warnyul.android.fast-video-view</groupId>
         <artifactId>fast-video-view</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </dependency>
+or Gradle:
+
+    compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.0'
+
+Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/warnyul/android/fast-video-view/fast-video-view/).
+
+Retrofit requires at minimum Java 6 or Android 4.0.
 
 ## Licence
 Copyright © 2014 Balázs Varga
