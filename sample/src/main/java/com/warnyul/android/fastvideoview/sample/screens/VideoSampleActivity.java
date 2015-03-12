@@ -15,6 +15,7 @@
  */
 package com.warnyul.android.fastvideoview.sample.screens;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.MediaController;
 
@@ -36,8 +37,7 @@ public class VideoSampleActivity extends BaseSampleActivity {
         setContentView(R.layout.activity_simple_video_sample);
 
         FastVideoView videoView = (FastVideoView)findViewById(R.id.video);
-        videoView.setMediaController(new MediaController(this));
-        videoView.setVideoPath("http://www.pocketjourney.com/downloads/pj/video/famous.3gp");
-        videoView.seekTo((int) TimeUnit.SECONDS.toMillis(1));
+        videoView.setVideoURI(Uri.parse("http://www.pocketjourney.com/downloads/pj/video/famous.3gp"));
+        videoView.start();
     }
 }

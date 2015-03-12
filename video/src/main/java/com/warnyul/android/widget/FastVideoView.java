@@ -16,7 +16,7 @@
 
 package com.warnyul.android.widget;
 
-import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +26,7 @@ import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -41,20 +42,20 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Displays a video file.  The FastVideoView class
+ * <p>Displays a video file.  The FastVideoView class
  * can load images from various sources (such as resources or content
  * providers), takes care of computing its measurement from the video so that
  * it can be used in any layout manager, and provides various display options
- * such as scaling and tinting.<p>
- * <p/>
- * <em>Note: FastVideoView does not retain its full state when going into the
+ * such as scaling and tinting.
+ * </p>
+ * <p><em>Note: FastVideoView does not retain its full state when going into the
  * background.</em>  In particular, it does not restore the current play state,
  * play position, selected tracks.  Applications should
  * save and restore these on their own in
  * {@link android.app.Activity#onSaveInstanceState} and
- * {@link android.app.Activity#onRestoreInstanceState}.<p>
- * Also note that the audio session id (from {@link #getAudioSessionId}) may
- * change from its previously returned value when the FastVideoView is restored.
+ * {@link android.app.Activity#onRestoreInstanceState}.</p>
+ * <p>Also note that the audio session id (from {@link #getAudioSessionId}) may
+ * change from its previously returned value when the FastVideoView is restored.</p>
  */
 public class FastVideoView extends TextureView implements MediaController.MediaPlayerControl {
 
@@ -314,19 +315,26 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
 
     MediaPlayer.OnVideoSizeChangedListener mSizeChangedListener = new MediaPlayer.OnVideoSizeChangedListener() {
 
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
         @Override
         public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
             mVideoWidth = mp.getVideoWidth();
             mVideoHeight = mp.getVideoHeight();
             if (mVideoWidth != 0 && mVideoHeight != 0) {
-                // TODO fixed size
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                    getSurfaceTexture().setDefaultBufferSize(mVideoWidth, mVideoHeight);
+                } else {
+                    mSurfaceTextureListener.onSurfaceTextureSizeChanged(getSurfaceTexture(), mVideoWidth, mVideoHeight);
+                }
+
                 requestLayout();
             }
         }
     };
 
     MediaPlayer.OnPreparedListener mPreparedListener = new MediaPlayer.OnPreparedListener() {
-        @SuppressLint("NewApi")
+
         @Override
         public void onPrepared(MediaPlayer mp) {
             // briefly show the mediacontroller
