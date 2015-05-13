@@ -313,6 +313,7 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
     private void setFixedSize(int width, int height) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
             getSurfaceTexture().setDefaultBufferSize(width, height);
@@ -322,8 +323,8 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
     }
 
     private boolean hasValidSize() {
-        final float surfaceRatio = Math.round((mSurfaceWidth / (float) mSurfaceHeight) * 100.0f) / 100.0f;
-        final float videoRatio = Math.round((mVideoWidth / (float) mVideoHeight) * 100.0f) / 100.0f;
+        final float surfaceRatio = Math.round((mSurfaceWidth / (float) mSurfaceHeight) * 10.0f) / 10.0f;
+        final float videoRatio = Math.round((mVideoWidth / (float) mVideoHeight) * 10.0f) / 10.0f;
         return (surfaceRatio == videoRatio);
     }
 
