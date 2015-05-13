@@ -22,8 +22,10 @@ env:
   - secure: QM89U4SGeIiu7FYFoh6oLrn9TsKczQZhdLQu6fAoZIEpPvbgzP7tvLtNDd34esaIoj3V4/C4QL2u3Tnhd9mr+G36xtUWpurjA/dELRzTNra2UO8R3uc5C73omyNU2EOl/5ZOblzudtDqkRGDHf1hBNXaLys/PnL4Jaiv2ixLsrY=
 android:
     components:
-        - build-tools-21.1.1
-        - android-21
+        - platform-tools
+        - tools
+        - build-tools-22.0.1
+        - android-22
     licenses:
         - 'android-sdk-preview-license-.+'
         - 'android-sdk-license-.+'

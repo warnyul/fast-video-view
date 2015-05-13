@@ -271,9 +271,9 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
             mMediaPlayer.setOnErrorListener(mErrorListener);
             mMediaPlayer.setOnBufferingUpdateListener(mBufferingUpdateListener);
             mCurrentBufferPercentage = 0;
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mMediaPlayer.setDataSource(context, mUri, mHeaders);
             mMediaPlayer.setSurface(mSurface);
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mMediaPlayer.prepareAsync();
 
             // we don't set the target state here either, but preserve the
@@ -313,6 +313,20 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
         }
     }
 
+    private void setFixedSize(int width, int height) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            getSurfaceTexture().setDefaultBufferSize(width, height);
+        } else {
+            mSurfaceTextureListener.onSurfaceTextureSizeChanged(getSurfaceTexture(), width, height);
+        }
+    }
+
+    private boolean hasValidSize() {
+        final float surfaceRatio = Math.round((mSurfaceWidth / (float) mSurfaceHeight) * 100.0f) / 100.0f;
+        final float videoRatio = Math.round((mVideoWidth / (float) mVideoHeight) * 100.0f) / 100.0f;
+        return (surfaceRatio == videoRatio);
+    }
+
     MediaPlayer.OnVideoSizeChangedListener mSizeChangedListener = new MediaPlayer.OnVideoSizeChangedListener() {
 
         @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
@@ -321,13 +335,7 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
             mVideoWidth = mp.getVideoWidth();
             mVideoHeight = mp.getVideoHeight();
             if (mVideoWidth != 0 && mVideoHeight != 0) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                    getSurfaceTexture().setDefaultBufferSize(mVideoWidth, mVideoHeight);
-                } else {
-                    mSurfaceTextureListener.onSurfaceTextureSizeChanged(getSurfaceTexture(), mVideoWidth, mVideoHeight);
-                }
-
+                setFixedSize(mVideoWidth, mVideoHeight);
                 requestLayout();
             }
         }
@@ -357,8 +365,8 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
             }
             if (mVideoWidth != 0 && mVideoHeight != 0) {
                 //Log.i("@@@@", "video size: " + mVideoWidth +"/"+ mVideoHeight);
-                //getHolder().setFixedSize(mVideoWidth, mVideoHeight);
-                if (mSurfaceWidth == mVideoWidth && mSurfaceHeight == mVideoHeight) {
+                setFixedSize(mVideoWidth, mVideoHeight);
+                if (hasValidSize()) {
                     // We didn't actually change the size (it was already at the size
                     // we need), so we won't get a "surface changed" callback, so
                     // start the video here instead of in the callback.
@@ -536,8 +544,7 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
             mSurfaceWidth = width;
             mSurfaceHeight = height;
             boolean isValidState = (mTargetState == STATE_PLAYING);
-            boolean hasValidSize = (mVideoWidth == width && mVideoHeight == height);
-            if (mMediaPlayer != null && isValidState && hasValidSize) {
+            if (mMediaPlayer != null && isValidState && hasValidSize()) {
                 if (mSeekWhenPrepared != 0) {
                     seekTo(mSeekWhenPrepared);
                 }

@@ -20,7 +20,6 @@ import android.widget.MediaController;
 
 import com.warnyul.android.fastvideoview.R;
 import com.warnyul.android.fastvideoview.sample.BaseSampleActivity;
-
 import com.warnyul.android.widget.FastVideoView;
 
 import java.util.concurrent.TimeUnit;
@@ -35,12 +34,14 @@ public class AlphaSampleActivity extends BaseSampleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alpha_sample);
 
-        FastVideoView videoView = (FastVideoView)findViewById(R.id.video);
+        FastVideoView videoView = (FastVideoView) findViewById(R.id.video);
         videoView.setMediaController(new MediaController(this));
-        videoView.setVideoPath("http://www.pocketjourney.com/downloads/pj/video/famous.3gp");
-        videoView.seekTo((int) TimeUnit.SECONDS.toMillis(1));
+        videoView.setVideoURI(getVideoUri());
 
         // Uncomment this line, when you want to set alpha from code.
         // videoView.setAlpha(0.5f);
+
+        videoView.start();
+
     }
 }
