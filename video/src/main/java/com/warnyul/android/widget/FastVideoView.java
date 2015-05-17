@@ -16,7 +16,6 @@
 
 package com.warnyul.android.widget;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -313,7 +312,7 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+    @SuppressWarnings("NewApi")
     private void setFixedSize(int width, int height) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
             getSurfaceTexture().setDefaultBufferSize(width, height);
@@ -330,7 +329,6 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
 
     MediaPlayer.OnVideoSizeChangedListener mSizeChangedListener = new MediaPlayer.OnVideoSizeChangedListener() {
 
-        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
         @Override
         public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
             mVideoWidth = mp.getVideoWidth();
@@ -346,11 +344,23 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
 
         @Override
         public void onPrepared(MediaPlayer mp) {
+
             // briefly show the mediacontroller
             mCurrentState = STATE_PREPARED;
 
-            // TODO Get the capabilities of the player for this stream...
-            mCanPause = mCanSeekBack = mCanSeekForward = true;
+            // Get the capabilities of the player for this stream
+            MetadataUtils.init(mp);
+
+            if (MetadataUtils.isInitialized()) {
+                mCanPause = !MetadataUtils.has(MetadataUtils.PAUSE_AVAILABLE)
+                        || MetadataUtils.getBoolean(MetadataUtils.PAUSE_AVAILABLE);
+                mCanSeekBack = !MetadataUtils.has(MetadataUtils.SEEK_BACKWARD_AVAILABLE)
+                        || MetadataUtils.getBoolean(MetadataUtils.SEEK_BACKWARD_AVAILABLE);
+                mCanSeekForward = !MetadataUtils.has(MetadataUtils.SEEK_FORWARD_AVAILABLE)
+                        || MetadataUtils.getBoolean(MetadataUtils.SEEK_FORWARD_AVAILABLE);
+            } else {
+                mCanPause = mCanSeekBack = mCanSeekForward = true;
+            }
 
             if (mOnPreparedListener != null) {
                 mOnPreparedListener.onPrepared(mMediaPlayer);
