@@ -21,16 +21,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Surface;
+import android.view.SurfaceHolder;
 import android.view.TextureView;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
@@ -59,6 +63,8 @@ import java.util.Map;
 public class FastVideoView extends TextureView implements MediaController.MediaPlayerControl {
 
     private static final String TAG = FastVideoView.class.getSimpleName();
+
+    private static final int KEEP_SCREEN_ON_MSG = 1;
 
     // settable by the client
     private Uri mUri;
@@ -100,6 +106,7 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
     private boolean mCanPause;
     private boolean mCanSeekBack;
     private boolean mCanSeekForward;
+    private Rect mSurfaceFrame = new Rect();
 
     private MediaPlayer.OnBufferingUpdateListener mOnBufferingUpdateListener;
 
@@ -272,7 +279,8 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
             mCurrentBufferPercentage = 0;
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mMediaPlayer.setDataSource(context, mUri, mHeaders);
-            mMediaPlayer.setSurface(mSurface);
+            mMediaPlayer.setDisplay(mSurfaceHolder);
+            mMediaPlayer.setScreenOnWhilePlaying(true);
             mMediaPlayer.prepareAsync();
 
             // we don't set the target state here either, but preserve the
@@ -312,13 +320,8 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
         }
     }
 
-    @SuppressWarnings("NewApi")
     private void setFixedSize(int width, int height) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            getSurfaceTexture().setDefaultBufferSize(width, height);
-        } else {
-            mSurfaceTextureListener.onSurfaceTextureSizeChanged(getSurfaceTexture(), width, height);
-        }
+        mSurfaceHolder.setFixedSize(width, height);
     }
 
     private boolean hasValidSize() {
@@ -769,4 +772,83 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
         }
         return mAudioSession;
     }
+
+    final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case KEEP_SCREEN_ON_MSG: {
+                    setKeepScreenOn(msg.arg1 != 0);
+                }
+                break;
+            }
+        }
+    };
+
+    private final SurfaceHolder mSurfaceHolder = new SurfaceHolder() {
+
+        @Override
+        public void addCallback(Callback callback) {
+        }
+
+        @Override
+        public void removeCallback(Callback callback) {
+        }
+
+        @Override
+        public boolean isCreating() {
+            return (mSurface != null);
+        }
+
+        @Override
+        public void setType(int type) {
+        }
+
+        @Override
+        public void setFixedSize(int width, int height) {
+            if (getWidth() != width || getHeight() != height) {
+                requestLayout();
+            }
+        }
+
+        @Override
+        public void setSizeFromLayout() {
+        }
+
+        @Override
+        public void setFormat(int format) {
+        }
+
+        @Override
+        public void setKeepScreenOn(boolean screenOn) {
+            Message msg = mHandler.obtainMessage(KEEP_SCREEN_ON_MSG);
+            msg.arg1 = screenOn ? 1 : 0;
+            mHandler.sendMessage(msg);
+        }
+
+        @Override
+        public Canvas lockCanvas() {
+            return null;
+        }
+
+        @Override
+        public Canvas lockCanvas(Rect dirty) {
+            return null;
+        }
+
+        @Override
+        public void unlockCanvasAndPost(Canvas canvas) {
+        }
+
+        @Override
+        public Rect getSurfaceFrame() {
+            mSurfaceFrame.set(0, 0, mVideoWidth, mVideoHeight);
+            return mSurfaceFrame;
+        }
+
+        @Override
+        public Surface getSurface() {
+            return mSurface;
+        }
+    };
 }

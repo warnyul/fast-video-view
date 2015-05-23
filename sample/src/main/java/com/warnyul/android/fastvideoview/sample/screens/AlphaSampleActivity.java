@@ -22,8 +22,6 @@ import com.warnyul.android.fastvideoview.R;
 import com.warnyul.android.fastvideoview.sample.BaseSampleActivity;
 import com.warnyul.android.widget.FastVideoView;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Sample Activity for VideoView class transparent usage.
  */
