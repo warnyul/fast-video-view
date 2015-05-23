@@ -16,22 +16,25 @@
 
 package com.warnyul.android.widget;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Surface;
+import android.view.SurfaceHolder;
 import android.view.TextureView;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
@@ -60,6 +63,8 @@ import java.util.Map;
 public class FastVideoView extends TextureView implements MediaController.MediaPlayerControl {
 
     private static final String TAG = FastVideoView.class.getSimpleName();
+
+    private static final int KEEP_SCREEN_ON_MSG = 1;
 
     // settable by the client
     private Uri mUri;
@@ -101,6 +106,7 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
     private boolean mCanPause;
     private boolean mCanSeekBack;
     private boolean mCanSeekForward;
+    private Rect mSurfaceFrame = new Rect();
 
     private MediaPlayer.OnBufferingUpdateListener mOnBufferingUpdateListener;
 
@@ -271,9 +277,10 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
             mMediaPlayer.setOnErrorListener(mErrorListener);
             mMediaPlayer.setOnBufferingUpdateListener(mBufferingUpdateListener);
             mCurrentBufferPercentage = 0;
-            mMediaPlayer.setDataSource(context, mUri, mHeaders);
-            mMediaPlayer.setSurface(mSurface);
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPlayer.setDataSource(context, mUri, mHeaders);
+            mMediaPlayer.setDisplay(mSurfaceHolder);
+            mMediaPlayer.setScreenOnWhilePlaying(true);
             mMediaPlayer.prepareAsync();
 
             // we don't set the target state here either, but preserve the
@@ -313,21 +320,24 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
         }
     }
 
+    private void setFixedSize(int width, int height) {
+        mSurfaceHolder.setFixedSize(width, height);
+    }
+
+    private boolean hasValidSize() {
+        final float surfaceRatio = Math.round((mSurfaceWidth / (float) mSurfaceHeight) * 10.0f) / 10.0f;
+        final float videoRatio = Math.round((mVideoWidth / (float) mVideoHeight) * 10.0f) / 10.0f;
+        return (surfaceRatio == videoRatio);
+    }
+
     MediaPlayer.OnVideoSizeChangedListener mSizeChangedListener = new MediaPlayer.OnVideoSizeChangedListener() {
 
-        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
         @Override
         public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
             mVideoWidth = mp.getVideoWidth();
             mVideoHeight = mp.getVideoHeight();
             if (mVideoWidth != 0 && mVideoHeight != 0) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                    getSurfaceTexture().setDefaultBufferSize(mVideoWidth, mVideoHeight);
-                } else {
-                    mSurfaceTextureListener.onSurfaceTextureSizeChanged(getSurfaceTexture(), mVideoWidth, mVideoHeight);
-                }
-
+                setFixedSize(mVideoWidth, mVideoHeight);
                 requestLayout();
             }
         }
@@ -337,11 +347,23 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
 
         @Override
         public void onPrepared(MediaPlayer mp) {
+
             // briefly show the mediacontroller
             mCurrentState = STATE_PREPARED;
 
-            // TODO Get the capabilities of the player for this stream...
-            mCanPause = mCanSeekBack = mCanSeekForward = true;
+            // Get the capabilities of the player for this stream
+            MetadataUtils.init(mp);
+
+            if (MetadataUtils.isInitialized()) {
+                mCanPause = !MetadataUtils.has(MetadataUtils.PAUSE_AVAILABLE)
+                        || MetadataUtils.getBoolean(MetadataUtils.PAUSE_AVAILABLE);
+                mCanSeekBack = !MetadataUtils.has(MetadataUtils.SEEK_BACKWARD_AVAILABLE)
+                        || MetadataUtils.getBoolean(MetadataUtils.SEEK_BACKWARD_AVAILABLE);
+                mCanSeekForward = !MetadataUtils.has(MetadataUtils.SEEK_FORWARD_AVAILABLE)
+                        || MetadataUtils.getBoolean(MetadataUtils.SEEK_FORWARD_AVAILABLE);
+            } else {
+                mCanPause = mCanSeekBack = mCanSeekForward = true;
+            }
 
             if (mOnPreparedListener != null) {
                 mOnPreparedListener.onPrepared(mMediaPlayer);
@@ -357,8 +379,8 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
             }
             if (mVideoWidth != 0 && mVideoHeight != 0) {
                 //Log.i("@@@@", "video size: " + mVideoWidth +"/"+ mVideoHeight);
-                //getHolder().setFixedSize(mVideoWidth, mVideoHeight);
-                if (mSurfaceWidth == mVideoWidth && mSurfaceHeight == mVideoHeight) {
+                setFixedSize(mVideoWidth, mVideoHeight);
+                if (hasValidSize()) {
                     // We didn't actually change the size (it was already at the size
                     // we need), so we won't get a "surface changed" callback, so
                     // start the video here instead of in the callback.
@@ -536,8 +558,7 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
             mSurfaceWidth = width;
             mSurfaceHeight = height;
             boolean isValidState = (mTargetState == STATE_PLAYING);
-            boolean hasValidSize = (mVideoWidth == width && mVideoHeight == height);
-            if (mMediaPlayer != null && isValidState && hasValidSize) {
+            if (mMediaPlayer != null && isValidState && hasValidSize()) {
                 if (mSeekWhenPrepared != 0) {
                     seekTo(mSeekWhenPrepared);
                 }
@@ -751,4 +772,83 @@ public class FastVideoView extends TextureView implements MediaController.MediaP
         }
         return mAudioSession;
     }
+
+    final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case KEEP_SCREEN_ON_MSG: {
+                    setKeepScreenOn(msg.arg1 != 0);
+                }
+                break;
+            }
+        }
+    };
+
+    private final SurfaceHolder mSurfaceHolder = new SurfaceHolder() {
+
+        @Override
+        public void addCallback(Callback callback) {
+        }
+
+        @Override
+        public void removeCallback(Callback callback) {
+        }
+
+        @Override
+        public boolean isCreating() {
+            return (mSurface != null);
+        }
+
+        @Override
+        public void setType(int type) {
+        }
+
+        @Override
+        public void setFixedSize(int width, int height) {
+            if (getWidth() != width || getHeight() != height) {
+                requestLayout();
+            }
+        }
+
+        @Override
+        public void setSizeFromLayout() {
+        }
+
+        @Override
+        public void setFormat(int format) {
+        }
+
+        @Override
+        public void setKeepScreenOn(boolean screenOn) {
+            Message msg = mHandler.obtainMessage(KEEP_SCREEN_ON_MSG);
+            msg.arg1 = screenOn ? 1 : 0;
+            mHandler.sendMessage(msg);
+        }
+
+        @Override
+        public Canvas lockCanvas() {
+            return null;
+        }
+
+        @Override
+        public Canvas lockCanvas(Rect dirty) {
+            return null;
+        }
+
+        @Override
+        public void unlockCanvasAndPost(Canvas canvas) {
+        }
+
+        @Override
+        public Rect getSurfaceFrame() {
+            mSurfaceFrame.set(0, 0, mVideoWidth, mVideoHeight);
+            return mSurfaceFrame;
+        }
+
+        @Override
+        public Surface getSurface() {
+            return mSurface;
+        }
+    };
 }

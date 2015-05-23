@@ -6,5 +6,5 @@ if [[ -n $"{TRAVIS_TAG}" ]]; then
     fi
 else
     echo "upload release"
-    ./gradlew :video:uploadArchives -PNEXUS_USERNAME="${NEXUS_USERNAME}" -PNEXUS_PASSWORD="${NEXUS_PASSWORD}" -Psigning.keyId="${SIGNING_KEY_ID}" -Psigning.password="${SIGNING_PASSWORD}" -Psigning.secretKeyRingFile="${SIGNING_KEY_RING_FILE}"
+    openssl aes-256-cbc -K $encrypted_1d5880f7ca01_key -iv $encrypted_1d5880f7ca01_iv -in ./video/fast-video-view.gpg.enc -out ./video/fast-video-view.gpg -d
 fi

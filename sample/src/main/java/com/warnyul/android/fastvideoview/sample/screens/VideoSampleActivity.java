@@ -15,16 +15,12 @@
  */
 package com.warnyul.android.fastvideoview.sample.screens;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.MediaController;
 
 import com.warnyul.android.fastvideoview.R;
 import com.warnyul.android.fastvideoview.sample.BaseSampleActivity;
-
 import com.warnyul.android.widget.FastVideoView;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Sample Activity for VideoView class simple usage.
@@ -36,8 +32,9 @@ public class VideoSampleActivity extends BaseSampleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_video_sample);
 
-        FastVideoView videoView = (FastVideoView)findViewById(R.id.video);
-        videoView.setVideoURI(Uri.parse("http://www.pocketjourney.com/downloads/pj/video/famous.3gp"));
+        FastVideoView videoView = (FastVideoView) findViewById(R.id.video);
+        videoView.setMediaController(new MediaController(this));
+        videoView.setVideoURI(getVideoUri());
         videoView.start();
     }
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 Balázs Varga
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2014 Balázs Varga
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,9 +14,9 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="@dimen/default_padding"
     tools:context="com.warnyul.android.fastvideoview.sample.screens.VideoSampleActivity">
 
@@ -25,17 +24,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/text_margin_bottom"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/sample" />
+        android:text="@string/sample"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <!-- MediaController will be attached to this View -->
 
         <com.warnyul.android.widget.FastVideoView
             android:id="@+id/video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </RelativeLayout>
 </LinearLayout>

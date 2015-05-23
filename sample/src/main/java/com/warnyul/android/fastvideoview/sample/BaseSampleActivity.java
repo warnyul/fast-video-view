@@ -16,8 +16,11 @@
 package com.warnyul.android.fastvideoview.sample;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.warnyul.android.fastvideoview.R;
 
 /**
  * Base Activity for Sample Activities.
@@ -39,5 +42,9 @@ public class BaseSampleActivity extends Activity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected Uri getVideoUri() {
+        return Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.famous);
     }
 }

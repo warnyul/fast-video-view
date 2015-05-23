@@ -41,11 +41,11 @@ Download [the latest JAR](https://oss.sonatype.org/content/groups/public/com/war
     <dependency>
         <groupId>com.warnyul.android.fast-video-view</groupId>
         <artifactId>fast-video-view</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </dependency>
 or Gradle:
 
-    compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.1'
+    compile 'com.warnyul.android.fast-video-view:fast-video-view:1.0.2'
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/warnyul/android/fast-video-view/fast-video-view/).
 
