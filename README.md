@@ -36,7 +36,7 @@ Java code:
     }
 
 ## Download
-Download [the latest JAR](https://oss.sonatype.org/content/groups/public/com/warnyul/android/fast-video-view/fast-video-view/1.0.1/fast-video-view-1.0.1.jar) or grab via Maven:
+Download [the latest JAR](https://oss.sonatype.org/content/groups/public/com/warnyul/android/fast-video-view/fast-video-view/1.0.2/fast-video-view-1.0.2.jar) or grab via Maven:
 
     <dependency>
         <groupId>com.warnyul.android.fast-video-view</groupId>
